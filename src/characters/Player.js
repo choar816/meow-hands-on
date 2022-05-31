@@ -1,5 +1,6 @@
 import Beam from '../effects/Beam';
 import HpBar from "../ui/HpBar";
+import Explosion from "../effects/Explosion";
 
 export const Direction = Object.freeze({
   Up: 'Up',
@@ -52,7 +53,40 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   hitByEnemy(damage) {
+    if (this.alpha < 1)
+    return;
 
+    this.scene.m_hurtSound.play();
+    this.m_hpBar.decrease(damage);
+    if (this.m_hpBar.m_currentHp <= 0) {
+      // 게임오버!
+    }
+
+    new Explosion(this.scene, this.x, this.y);
+
+    this.disableBody(true, false);
+    this.alpha = 0.5;
+
+    // 공격받은 후 1초 쿨타임
+    this.scene.time.addEvent({
+        delay: 1000,
+        callback: this.resetPlayer,
+        callbackScope: this,
+        loop: false
+    });
+  }
+
+  resetPlayer() {
+    this.enableBody(true, this.x, this.y, true, true);
+
+    this.scene.tweens.add({
+      targets: this,
+      duration: 1000,
+      repeat: 0,
+      onComplete: () => {
+        this.alpha = 1;
+      }
+    });
   }
 
   shootBeam() {
