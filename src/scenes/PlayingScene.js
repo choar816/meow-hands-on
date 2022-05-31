@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Config from "../Config";
-import Player from '../characters/Player';
+import Player, { Direction } from '../characters/Player';
 
 export default class PlayingScene extends Phaser.Scene {
     constructor() {
@@ -25,14 +25,29 @@ export default class PlayingScene extends Phaser.Scene {
 
         // player
         this.m_player = new Player(this);
+
+      // keys
+      this.m_cursorKeys = this.input.keyboard.createCursorKeys();
+      console.log(this.m_cursorKeys);
     }
     
-
     update() {
-
+      this.handlePlayerMove();
     }
-
 
     //////////////////////// FUNCTIONS ////////////////////////
 
+    handlePlayerMove() {
+      if (this.m_cursorKeys.left.isDown) {
+        this.m_player.move(Direction.Left);
+      } else if (this.m_cursorKeys.right.isDown) {
+        this.m_player.move(Direction.Right);
+      }
+
+      if (this.m_cursorKeys.up.isDown) {
+        this.m_player.move(Direction.Up);
+      } else if (this.m_cursorKeys.down.isDown) {
+        this.m_player.move(Direction.Down);
+      }
+    }
 }
