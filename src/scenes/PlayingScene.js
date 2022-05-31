@@ -56,6 +56,9 @@ export default class PlayingScene extends Phaser.Scene {
     // 마치 무한대 배경인 것처럼!
     this.m_background.tilePositionX = this.m_player.x - Config.width / 2;
     this.m_background.tilePositionY = this.m_player.y - Config.height / 2;
+
+    // attack -> 가장 가까운 enemy
+    this.m_closest = this.physics.closest(this.m_player, this.m_enemies.getChildren());
   }
 
   //////////////////////// FUNCTIONS ////////////////////////
