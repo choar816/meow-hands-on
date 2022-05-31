@@ -29,11 +29,18 @@ export default class PlayingScene extends Phaser.Scene {
 
     // keys
     this.m_cursorKeys = this.input.keyboard.createCursorKeys();
-    console.log(this.m_cursorKeys);
   }
   
   update() {
     this.handlePlayerMove();
+
+    // camera가 가는 곳으로 background가 따라와요!
+    this.m_background.setX(this.m_player.x - Config.width / 2);
+    this.m_background.setY(this.m_player.y - Config.height / 2);
+
+    // 마치 무한대 배경인 것처럼!
+    this.m_background.tilePositionX = this.m_player.x - Config.width / 2;
+    this.m_background.tilePositionY = this.m_player.y - Config.height / 2;
   }
 
   //////////////////////// FUNCTIONS ////////////////////////
