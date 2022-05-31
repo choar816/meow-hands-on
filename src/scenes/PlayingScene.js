@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Config from "../Config";
 import Player, { Direction } from '../characters/Player';
+import Enemy from '../characters/Enemy';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -27,8 +28,17 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_player = new Player(this);
     this.cameras.main.startFollow(this.m_player);
 
-    // attacks
+    // attack
     this.m_attacks = this.add.group();
+
+    // enemy
+    this.m_enemies = this.physics.add.group();
+    this.m_enemies.add(new Enemy(this, Config.width / 2 - 200, Config.height / 2 - 200, "bat", "bat_anim", 10));
+
+    // collisions
+    this.physics.add.overlap(this.m_attacks, this.m_enemies, (attack, enemy) => {
+      enemy.hit(attack, 10);
+    }, null, this);
 
     // keys
     this.m_cursorKeys = this.input.keyboard.createCursorKeys();
