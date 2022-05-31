@@ -1,3 +1,5 @@
+import Beam from '../effects/Beam';
+
 export const Direction = Object.freeze({
   Up: 'Up',
   Down: 'Down',
@@ -15,6 +17,14 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   
     scene.add.existing(this);
     scene.physics.add.existing(this);
+
+    scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+          this.shootBeam();
+      },
+      loop: true,
+  });
   }
 
   move(direction) {
@@ -44,6 +54,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   shootBeam() {
-
+    new Beam(this.scene, this);
   }
 }

@@ -27,6 +27,9 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_player = new Player(this);
     this.cameras.main.startFollow(this.m_player);
 
+    // attacks
+    this.m_attacks = this.add.group();
+
     // keys
     this.m_cursorKeys = this.input.keyboard.createCursorKeys();
   }
