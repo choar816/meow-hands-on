@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Config from "../Config";
 import Player, { Direction } from '../characters/Player';
 import Enemy from '../characters/Enemy';
+import { getRandomPosition } from '../utils/math';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -34,6 +35,7 @@ export default class PlayingScene extends Phaser.Scene {
     // enemy
     this.m_enemies = this.physics.add.group();
     this.m_enemies.add(new Enemy(this, Config.width / 2 - 200, Config.height / 2 - 200, "bat", "bat_anim", 10));
+    this.addEnemy("bat", "bat_anim", 10);
 
     // collisions
     this.physics.add.overlap(this.m_attacks, this.m_enemies, (attack, enemy) => {
@@ -70,5 +72,16 @@ export default class PlayingScene extends Phaser.Scene {
     } else if (this.m_cursorKeys.down.isDown) {
       this.m_player.move(Direction.Down);
     }
+  }
+
+  addEnemy(enemyTexture, enemyAnim, enemyHp) {
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+          let [x, y] = getRandomPosition(this.m_player.x, this.m_player.y);
+          this.m_enemies.add(new Enemy(this, x, y, enemyTexture, enemyAnim, enemyHp));
+      },
+      loop: true,
+    });
   }
 }
