@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Config from "../Config";
+import Player from '../characters/Player';
 
 export default class PlayingScene extends Phaser.Scene {
     constructor() {
@@ -21,6 +22,9 @@ export default class PlayingScene extends Phaser.Scene {
         // background
         this.m_background = this.add.tileSprite(0, 0, Config.width, Config.height, "background");
         this.m_background.setOrigin(0, 0);
+
+        // player
+        this.m_player = new Player(this);
     }
     
 
