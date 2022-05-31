@@ -1,4 +1,5 @@
 import Beam from '../effects/Beam';
+import HpBar from "../ui/HpBar";
 
 export const Direction = Object.freeze({
   Up: 'Up',
@@ -17,6 +18,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   
     scene.add.existing(this);
     scene.physics.add.existing(this);
+    this.m_hpBar = new HpBar(scene, this, 100);
 
     scene.time.addEvent({
       delay: 1000,
