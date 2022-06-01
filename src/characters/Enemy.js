@@ -37,8 +37,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     if (this.m_hp <= 0) {
       new Explosion(this.scene, this.x, this.y);
       this.scene.m_explosionSound.play();
-
       this.scene.time.removeEvent(this.m_events);
+      
+      this.scene.m_score += 1;
+      this.scene.m_scoreLabel.text = `ENEMY KILLED ${this.scene.m_score.toString().padStart(6, '0')}`;
+      
       this.destroy();
     }
   }

@@ -37,6 +37,17 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_enemies.add(new Enemy(this, Config.width / 2 - 200, Config.height / 2 - 200, "bat", "bat_anim", 10));
     this.addEnemy("bat", "bat_anim", 10);
 
+    // score
+    const graphics = this.add.graphics();
+    graphics.fillStyle(0x28288C);
+    graphics.fillRect(0, 0, Config.width, 30);
+    graphics.setDepth(90);
+    graphics.setScrollFactor(0);
+    this.m_score = 0;
+    this.m_scoreLabel = this.add.bitmapText(5, 1, "pixelFont", `ENEMY KILLED ${this.m_score.toString().padStart(6, '0')}`, 40);
+    this.m_scoreLabel.setScrollFactor(0);
+    this.m_scoreLabel.setDepth(100);
+
     // collisions
     this.physics.add.overlap(this.m_attacks, this.m_enemies, (attack, enemy) => {
       enemy.hit(attack, 10);
