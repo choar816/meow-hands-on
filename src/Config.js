@@ -1,6 +1,6 @@
 import LoadingScene from "./scenes/LoadingScene";
 import PlayingScene from "./scenes/PlayingScene";
-// import MainScene from "./scenes/MainScene";
+import MainScene from "./scenes/MainScene";
 // import GameoverScene from "./scenes/GameoverScene";
 
 const Config = {
@@ -8,7 +8,7 @@ const Config = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
-  scene: [LoadingScene, PlayingScene],
+  scene: [LoadingScene, PlayingScene, MainScene],
   pixelArt: true,
   physics: {
     default: "arcade",
