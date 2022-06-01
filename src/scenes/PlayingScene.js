@@ -50,7 +50,7 @@ export default class PlayingScene extends Phaser.Scene {
 
     // collisions
     this.physics.add.overlap(this.m_attacks, this.m_enemies, (attack, enemy) => {
-      enemy.hit(attack, 10);
+      enemy.hit(attack, 5);
     }, null, this);
     this.physics.add.overlap(this.m_player, this.m_enemies, () => this.m_player.hitByEnemy(10), null, this);
 

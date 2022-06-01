@@ -60,6 +60,8 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.m_hpBar.decrease(damage);
     if (this.m_hpBar.m_currentHp <= 0) {
       // 게임오버!
+      this.scene.m_gameoverSound.play();
+        this.scene.scene.start("gameoverScene", { enemyKilled: this.scene.m_score });
     }
 
     new Explosion(this.scene, this.x, this.y);
